@@ -41,6 +41,9 @@
                 <td>{{ $restaurant->phone }}</td>
                 <td>
                     <a class="btn btn-info" href="{{ route('restaurants.show',$restaurant->id) }}">Show</a>
+                    @can('restaurant-edit')
+                        <a class="btn btn-primary" href="{{ route('restaurants.edit',$restaurant->id) }}">Edit</a>
+                    @endcan
                 </td>
             </tr>
         @endforeach

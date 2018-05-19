@@ -67,4 +67,9 @@ class RestaurantController extends Controller
             ->with('success','Restaurant created successfully');
     }
 
+    public function edit($id){
+        $restaurant = Restaurant::find($id);
+        return view('restaurants.edit', compact('restaurant'));
+    }
+
 }
