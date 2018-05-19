@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Restaurant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class RestaurantController extends Controller
 {
@@ -22,8 +23,48 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        $products = Restaurant::latest()->paginate(5);
-        return view('restaurant.index',compact('products'));
+        $restaurants = Restaurant::latest()->paginate(5);
+        return view('restaurants.index',compact('restaurants'));
+    }
+
+    public function show($id)
+    {
+        $restaurant = Restaurant::find($id);
+
+        return view('restaurants.show',compact('restaurant'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('restaurants.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'address' => 'required',
+            'delivery_price' => ['required', 'regex:/^[0-9]+(?:\.[0-9]+)?$/','min:0'],
+            'phone' => 'required|min:9',
+        ]);
+
+
+        $restaurant = Restaurant::create(Input::all());
+
+
+        return redirect()->route('restaurants.index')
+            ->with('success','Restaurant created successfully');
     }
 
 }

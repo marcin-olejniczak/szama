@@ -14,9 +14,9 @@ class AddColumnsToUser extends Migration
     public function up()
     {
         Schema::table('users', function($table){
-            $table->string('surname')->after('name');
-            $table->string('position')->after('surname');
-            $table->string('phone')->after('surname');
+            $table->string('surname')->after('name')->nullable();
+            $table->string('position')->after('surname')->nullable();
+            $table->string('phone')->after('surname')->nullable();
         });
     }
 
