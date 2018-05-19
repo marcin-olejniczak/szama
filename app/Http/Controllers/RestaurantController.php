@@ -25,5 +25,5 @@ class RestaurantController extends Controller
         $products = Restaurant::latest()->paginate(5);
         return view('restaurant.index',compact('products'));
     }
-    
+
 }
